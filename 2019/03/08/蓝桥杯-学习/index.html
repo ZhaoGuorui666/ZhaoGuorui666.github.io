@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Allen | blog">
 <meta property="og:description" content="%.2f : 小数点后留两位 double sqrt( double num )函数 : 计算平方根,用到math.h sin,cos,asin,acos,tan,atan %03d : 输出三位,不够补零 floor(x) : 返回不超过x的最大整数 long long : -2^63 ~ 2^63-1 输出格式%lld 或者 %I64d 或者用c++中的cout输出; 计时器 : 使用time">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-08T08:54:41.955Z">
+<meta property="og:updated_time" content="2019-03-09T07:51:41.005Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="蓝桥杯---学习">
 <meta name="twitter:description" content="%.2f : 小数点后留两位 double sqrt( double num )函数 : 计算平方根,用到math.h sin,cos,asin,acos,tan,atan %03d : 输出三位,不够补零 floor(x) : 返回不超过x的最大整数 long long : -2^63 ~ 2^63-1 输出格式%lld 或者 %I64d 或者用c++中的cout输出; 计时器 : 使用time">
@@ -391,11 +391,34 @@
 </li>
 </ol>
 <p><strong>数组初始化</strong> : </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">memset(a,0,sizeof(a));</span><br><span class="line">int a[999] = &#123;0&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memset</span>(a,<span class="number">0</span>,<span class="keyword">sizeof</span>(a));</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">999</span>] = &#123;<span class="number">0</span>&#125;;</span><br></pre></td></tr></table></figure>
 <p><strong>读入字符数组</strong> : </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char s[];</span><br><span class="line">scanf(&quot;%s&quot;,s);  // 没有&amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> s[];</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%s"</span>,s);  <span class="comment">// 没有&amp;</span></span><br></pre></td></tr></table></figure>
 <p><strong>sscanf,sprintf</strong> : 输出到字符串中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">见API,sscanf尚未解决;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">见API,<span class="built_in">sscanf</span>尚未解</span><br></pre></td></tr></table></figure>
+<p><strong>素数判定</strong> : </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">is_prime</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;=<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="built_in">floor</span>(<span class="built_in">sqrt</span>(n)+<span class="number">0.5</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ;i&lt;=m;i++)</span><br><span class="line">        <span class="keyword">if</span>(n%i == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>sort函数(需要 algorithm 库)</strong> : </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&gt;b; <span class="comment">//从大到小排序</span></span><br><span class="line">    <span class="keyword">return</span> a&lt;b; <span class="comment">//从小到大排序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>isalpha,isdigit,toupper(需要 ctype.h)</strong></p>
+<p><strong>min(),max()函数需要用到 algorithm 库</strong></p>
+<p><strong>string -&gt; char*</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data()</span><br><span class="line">① <span class="keyword">const</span> <span class="keyword">char</span>* charDemo = str.data();</span><br><span class="line">② <span class="keyword">char</span>* charDemo = (<span class="keyword">char</span>*)str.data();</span><br><span class="line">c_str()同</span><br></pre></td></tr></table></figure>
+<p><strong>char* -&gt; string</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str = charDemo;</span><br></pre></td></tr></table></figure>
+<p><strong>string -&gt; char[ ]</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">遍历转换</span><br></pre></td></tr></table></figure>
+<p><strong>rbegin尾元素</strong></p>
+<p><strong>迭代器:  set<object>::iterator</object></strong></p>
+<p><strong>deque 双端队列(支持在首尾两端进行插入和删除)</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pop_back()</span><br><span class="line">pop_front()</span><br><span class="line">push_back()</span><br><span class="line">push_front()</span><br></pre></td></tr></table></figure>
+<p><strong>链表(减少字符移动):</strong></p>
+<p>​    可以用next[ ],和保存数据的数组构成链表.</p>
+<p><strong>双向链表:</strong></p>
+<p>​    利用right[ ],left[ ]</p>
+<p><strong>多写伪代码</strong></p>
+<p>!1 = 0;</p>
+<p>!0 = 1;</p>
 
       
     </div>
