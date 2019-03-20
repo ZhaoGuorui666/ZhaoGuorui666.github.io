@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1234567Integer i1 = 3;Integer i2 = 3;i1 == i2;Integer i3 = 300;Integer i4 = 300;i3 != i4; 在Integer的操作上引入了一个新功能来节省内存和提高性能。 在整数值区间-128 至 +127,整型对象通过使用相同的对象应用实现了缓存和重用.">
+<meta name="description" content="1234567Integer i1 = 3;Integer i2 = 3;i1 == i2;Integer i3 = 300;Integer i4 = 300;i3 != i4; 在Integer的操作上引入了一个新功能来节省内存和提高性能。 在整数值区间-128 至 +127,整型对象通过使用相同的对象应用实现了缓存和重用. == 与 equals :  ==   基本类型 : 比较的是值 引用">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java整型缓存机制">
 <meta property="og:url" content="http://yoursite.com/2019/03/20/java整型缓存机制/index.html">
 <meta property="og:site_name" content="Allen | blog">
-<meta property="og:description" content="1234567Integer i1 = 3;Integer i2 = 3;i1 == i2;Integer i3 = 300;Integer i4 = 300;i3 != i4; 在Integer的操作上引入了一个新功能来节省内存和提高性能。 在整数值区间-128 至 +127,整型对象通过使用相同的对象应用实现了缓存和重用.">
+<meta property="og:description" content="1234567Integer i1 = 3;Integer i2 = 3;i1 == i2;Integer i3 = 300;Integer i4 = 300;i3 != i4; 在Integer的操作上引入了一个新功能来节省内存和提高性能。 在整数值区间-128 至 +127,整型对象通过使用相同的对象应用实现了缓存和重用. == 与 equals :  ==   基本类型 : 比较的是值 引用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-19T23:57:31.967Z">
+<meta property="og:updated_time" content="2019-03-20T00:23:26.686Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java整型缓存机制">
-<meta name="twitter:description" content="1234567Integer i1 = 3;Integer i2 = 3;i1 == i2;Integer i3 = 300;Integer i4 = 300;i3 != i4; 在Integer的操作上引入了一个新功能来节省内存和提高性能。 在整数值区间-128 至 +127,整型对象通过使用相同的对象应用实现了缓存和重用.">
+<meta name="twitter:description" content="1234567Integer i1 = 3;Integer i2 = 3;i1 == i2;Integer i3 = 300;Integer i4 = 300;i3 != i4; 在Integer的操作上引入了一个新功能来节省内存和提高性能。 在整数值区间-128 至 +127,整型对象通过使用相同的对象应用实现了缓存和重用. == 与 equals :  ==   基本类型 : 比较的是值 引用">
 
 
 
@@ -366,6 +366,19 @@
         <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Integer i1 = <span class="number">3</span>;</span><br><span class="line">Integer i2 = <span class="number">3</span>;</span><br><span class="line">i1 == i2;</span><br><span class="line"></span><br><span class="line">Integer i3 = <span class="number">300</span>;</span><br><span class="line">Integer i4 = <span class="number">300</span>;</span><br><span class="line">i3 != i4;</span><br></pre></td></tr></table></figure>
 <p>在Integer的操作上引入了一个新功能来节省内存和提高性能。</p>
 <p>在整数值区间<strong>-128 至 +127,</strong>整型对象通过使用相同的对象应用实现了缓存和重用.</p>
+<p>== 与 equals :</p>
+<ol>
+<li><p>== </p>
+<ol>
+<li>基本类型 : 比较的是值</li>
+<li><p>引用类型 : 比较的是引用</p>
+</li>
+<li><p>equals</p>
+<p>​    1. 比较的是值</p>
+</li>
+</ol>
+</li>
+</ol>
 
       
     </div>
@@ -405,6 +418,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/20/java基础知识点/" rel="prev" title="java基础知识点">
+                java基础知识点 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -472,7 +489,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
