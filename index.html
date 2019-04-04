@@ -259,6 +259,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/problem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵国瑞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Allen | blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/04/problem/" itemprop="url">待解决问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-04T07:11:49+08:00">
+                2019-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/problem/" itemprop="url" rel="index">
+                    <span itemprop="name">problem</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/04/problem/" class="leancloud_visitors" data-flag-title="待解决问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>cglib代理</p>
+<p>事务</p>
+<p>HQL只有在运行时才会被解析,扩展性差    </p>
+<p>报表查询,子查询</p>
+<p>工厂模式</p>
+<p>阿里天池</p>
+<p>javamail</p>
+<p>map.entrySet map.entry</p>
+<p>servlet mappinp           servlet name         url pattern</p>
+<p>properities</p>
+<p>spring mvc 操作</p>
+<p>自定义异常操作</p>
+<p>web配置文件中的listener标签</p>
+<p><servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class></p>
+<p>javadoc文档</p>
+<p>jackson json</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/java并发学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -393,6 +561,12 @@
 <p>而非公平信号量就是无关了.</p>
 <p>在Semaphore构造函数中加入 isFair=true即可得到公平信号量运行的结果.</p>
 <h4 id="tryAcquire-的使用"><a href="#tryAcquire-的使用" class="headerlink" title="tryAcquire()的使用"></a>tryAcquire()的使用</h4><p>作用使尝试获得1个许可,如果获取不到则返回false,通常与if结合,特点是无堵塞的特点,可以使线程不至于在同步处一直持续等待的状态,if不成立会执行else,程序继续往下走.</p>
+<p>tryAcquire(int permits),尝试获得x个许可,同上.</p>
+<p>tryAcquire(int long timeout, TimeUnit unit)在指定的时间内尝试获得许可.</p>
+<p>tryAcquire(int permits,int long timeout,TimeUnit unit) 同上</p>
+<h4 id="多进路-多处理-多出路"><a href="#多进路-多处理-多出路" class="headerlink" title="多进路-多处理-多出路"></a>多进路-多处理-多出路</h4><p>允许多个线程同时处理任务.即每个线程都在处理自己的任务</p>
+<h4 id="多进程-单处理-多出路"><a href="#多进程-单处理-多出路" class="headerlink" title="多进程-单处理-多出路"></a>多进程-单处理-多出路</h4><p>允许多个线程同时处理任务,但执行任务的顺序确实同步的,也就是堵塞的,即单处理.</p>
+<p>加入了ReentrantLock对象,调用它的lock方法保证同步性.</p>
 <h3 id="Exchanger的使用"><a href="#Exchanger的使用" class="headerlink" title="Exchanger的使用"></a>Exchanger的使用</h3><p>Exchanger主要是可以使两个线程间互相方便进行通信.</p>
 
           
@@ -737,172 +911,6 @@
 <p>@RequestParam 的 defaultValue 取值就是用来给取值为空的请求参数提供一个默认值的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/home "</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IndexController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/name "</span>)</span><br><span class="line">    <span class="function">String <span class="title">getName</span><span class="params">(@RequestParam(value = <span class="string">"person</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="string">                                "</span>, defaultValue = <span class="string">"John "</span>)</span> String personName) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Required element of request param "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在这段代码中，如果 person 这个请求参数为空，那么 getName() 处理方法就会接收 John 这个默认值作为其参数。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/problem/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="赵国瑞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Allen | blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/30/problem/" itemprop="url">待解决问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T10:11:49+08:00">
-                2019-03-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/problem/" itemprop="url" rel="index">
-                    <span itemprop="name">problem</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/03/30/problem/" class="leancloud_visitors" data-flag-title="待解决问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>cglib代理</p>
-<p>事务</p>
-<p>HQL只有在运行时才会被解析,扩展性差    </p>
-<p>报表查询,子查询</p>
-<p>工厂模式</p>
-<p>阿里天池</p>
-<p>javamail</p>
-<p>map.entrySet map.entry</p>
-<p>servlet mappinp           servlet name         url pattern</p>
-<p>properities</p>
-<p>spring mvc 操作</p>
-<p>自定义异常操作</p>
-<p>web配置文件中的listener标签</p>
-<p><servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class></p>
 
           
         
