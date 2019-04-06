@@ -259,6 +259,382 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/06/java并发学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵国瑞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Allen | blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/06/java并发学习/" itemprop="url">java并发学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T19:57:07+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/并发/" itemprop="url" rel="index">
+                    <span itemprop="name">并发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/06/java并发学习/" class="leancloud_visitors" data-flag-title="java并发学习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Semephore和Exchanger的使用"><a href="#Semephore和Exchanger的使用" class="headerlink" title="Semephore和Exchanger的使用"></a>Semephore和Exchanger的使用</h2><h3 id="Semaphore-信号-信号系统-的使用"><a href="#Semaphore-信号-信号系统-的使用" class="headerlink" title="Semaphore (信号,信号系统) 的使用"></a>Semaphore (信号,信号系统) 的使用</h3><p>Semaphore 提供的功能是 synchronized 关键字的升级版,<strong>主要作用是控制线程并发的数量 (这一点单纯使用synchronized是完不成的 ) .</strong></p>
+<p><strong>为什么要控制线程并发的数量呢?</strong></p>
+<p>如果不限制线程并发的数量,cpu资源很快就会被耗尽,每个线程执行任务相当缓慢,同时上下文切换也要耗时.造成系统运行效率很低.</p>
+<h4 id="Semaphore的同步性"><a href="#Semaphore的同步性" class="headerlink" title="Semaphore的同步性"></a>Semaphore的同步性</h4><p><strong>多线程中同步的概念</strong>:排着队一个一个执行,有助于程序逻辑的正确性.</p>
+<h4 id="Semaphore的构造方法中的permit参数"><a href="#Semaphore的构造方法中的permit参数" class="headerlink" title="Semaphore的构造方法中的permit参数"></a>Semaphore的构造方法中的permit参数</h4><p>参数permit代表同一时间内,设置许可的数量,即最多允许多少个线程同时执行acquire()和release()之间的代码.</p>
+<p>参数permit大于1,不能保证线程安全性.</p>
+<p>new Semaphore(5); 中5并不是最终的许可数量,仅仅使初始的状态值.</p>
+<h4 id="acquire-int-permit-参数作用及动态permits许可数量"><a href="#acquire-int-permit-参数作用及动态permits许可数量" class="headerlink" title="acquire(int permit)参数作用及动态permits许可数量"></a>acquire(int permit)参数作用及动态permits许可数量</h4><p>acquire(int permit)每调用一次此方法,使用x个许可.</p>
+<p>release()同.</p>
+<h4 id="acquireUninterruptibly-方法的使用"><a href="#acquireUninterruptibly-方法的使用" class="headerlink" title="acquireUninterruptibly()方法的使用"></a>acquireUninterruptibly()方法的使用</h4><p>作用:等待进入acquire()方法的线程,不允许被打断.</p>
+<h4 id="availablePermits-和drainPerimits"><a href="#availablePermits-和drainPerimits" class="headerlink" title="availablePermits()和drainPerimits()"></a>availablePermits()和drainPerimits()</h4><p>availablePermits()返回此Semaphore对象中当前可用的许可数,通常用于调试,因为许可的数量实时在改变,不固定.</p>
+<p>drainPerimits()返回立即可用的所有许可个数,并且将可用许可置为0.</p>
+<h4 id="getQueueLength-和hasQueuedThreads"><a href="#getQueueLength-和hasQueuedThreads" class="headerlink" title="getQueueLength()和hasQueuedThreads()"></a>getQueueLength()和hasQueuedThreads()</h4><p>getQueueLength()返回等待许可的线程个数</p>
+<p>hasQueuedThreads()判断有没有线程在等待这个许可.</p>
+<h4 id="公平与非公平信号量的测试"><a href="#公平与非公平信号量的测试" class="headerlink" title="公平与非公平信号量的测试"></a>公平与非公平信号量的测试</h4><p>有些时候,获得许可的顺序与线程启动的顺序有关,这时信号量就要分为公平与非公平的</p>
+<p>所谓公平信号量就是获得锁的顺序与线程启动的顺序有关,但不代表100%的获得信号量,仅仅使在概率上能得到保证.</p>
+<p>而非公平信号量就是无关了.</p>
+<p>在Semaphore构造函数中加入 isFair=true即可得到公平信号量运行的结果.</p>
+<h4 id="tryAcquire-的使用"><a href="#tryAcquire-的使用" class="headerlink" title="tryAcquire()的使用"></a>tryAcquire()的使用</h4><p>作用使尝试获得1个许可,如果获取不到则返回false,通常与if结合,特点是无堵塞的特点,可以使线程不至于在同步处一直持续等待的状态,if不成立会执行else,程序继续往下走.</p>
+<p>tryAcquire(int permits),尝试获得x个许可,同上.</p>
+<p>tryAcquire(int long timeout, TimeUnit unit)在指定的时间内尝试获得许可.</p>
+<p>tryAcquire(int permits,int long timeout,TimeUnit unit) 同上</p>
+<h4 id="多进路-多处理-多出路"><a href="#多进路-多处理-多出路" class="headerlink" title="多进路-多处理-多出路"></a>多进路-多处理-多出路</h4><p>允许多个线程同时处理任务.即每个线程都在处理自己的任务</p>
+<h4 id="多进程-单处理-多出路"><a href="#多进程-单处理-多出路" class="headerlink" title="多进程-单处理-多出路"></a>多进程-单处理-多出路</h4><p>允许多个线程同时处理任务,但执行任务的顺序确实同步的,也就是堵塞的,即单处理.</p>
+<p>加入了ReentrantLock对象,调用它的lock方法保证同步性.</p>
+<h4 id="多生产者多消费者模式"><a href="#多生产者多消费者模式" class="headerlink" title="多生产者多消费者模式"></a>多生产者多消费者模式</h4><p>类Semaphore提供了限制并发线程数的功能,此功能在默认的synchronized中是不提供的.</p>
+<h3 id="Exchanger的使用"><a href="#Exchanger的使用" class="headerlink" title="Exchanger的使用"></a>Exchanger的使用</h3><p>Exchanger主要是可以使两个线程间互相方便进行通信.,即在两个线程之间传输数据,它比生产者/消费者模式使用的wait/notify更加方便.</p>
+<h4 id="exchange-方法的阻塞特性"><a href="#exchange-方法的阻塞特性" class="headerlink" title="exchange()方法的阻塞特性:"></a>exchange()方法的阻塞特性:</h4><p>此方法被调用后,等待其他线程来取得数据,如果没有其他线程取得数据,则一直阻塞.</p>
+<p>exchange(V x,long timeout,TimeUnit unit):在制定时间内没有被其他线程获取数据,出现超时异常</p>
+<h2 id="CountDownLatch和CyclicBarrier的使用"><a href="#CountDownLatch和CyclicBarrier的使用" class="headerlink" title="CountDownLatch和CyclicBarrier的使用"></a>CountDownLatch和CyclicBarrier的使用</h2><p>这两个工具类可以控制线程的同步,使线程在同步的处理上更加灵活.</p>
+<h3 id="CountDownLatch的使用"><a href="#CountDownLatch的使用" class="headerlink" title="CountDownLatch的使用"></a>CountDownLatch的使用</h3><p>await()方法:判断计数是否为0,不为0,等待,为0,继续运行.</p>
+<p>countDown()方法将计数减1,当计数减为0时,等待的线程继续运行.</p>
+<p>new CountDownLatch(1) : 创建1个计数的CountDownLatch类的对象.</p>
+<p>当对象执行down.await()代码时呈等待状态,程序不向下继续运行.</p>
+<p>程序执行down.countDown()代码时计数由1变成0,呈等待状态的线程继续向下运行.</p>
+<h3 id="CyclicBarrier的使用"><a href="#CyclicBarrier的使用" class="headerlink" title="CyclicBarrier的使用"></a>CyclicBarrier的使用</h3><p>CycliceBarrier拥有CountDownLatch所具有的功能,还可以实现屏障等待的功能.它在使用上的意义在于可以循环的实现线程要一起做任务的目标,而不是像CountDownLatch一样,仅仅支持一次线程与同步点阻塞的特性.</p>
+<p>多个线程之间,任何一个线程没有完成任务,则所有线程都必须等待.</p>
+<h4 id="getNumberWaiting-方法"><a href="#getNumberWaiting-方法" class="headerlink" title="getNumberWaiting()方法"></a>getNumberWaiting()方法</h4><p>获得有几个线程已经到达屏障点.</p>
+<h4 id="isBroken-方法"><a href="#isBroken-方法" class="headerlink" title="isBroken()方法"></a>isBroken()方法</h4><p>检查屏障是否损坏</p>
+<h4 id="getNumberWaiting-和getParities-方法"><a href="#getNumberWaiting-和getParities-方法" class="headerlink" title="getNumberWaiting()和getParities()方法"></a>getNumberWaiting()和getParities()方法</h4><p>getNumberWaiting()作用是返回有几个线程到达屏障点.</p>
+<p>getParties()作用是取得Parties个数.</p>
+<h4 id="reset"><a href="#reset" class="headerlink" title="reset()"></a>reset()</h4><p>重置屏障.线程可能会出现Broken错误.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/06/bootstrap学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵国瑞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Allen | blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/06/bootstrap学习/" itemprop="url">bootstrap学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T10:32:44+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/bootstrap/" itemprop="url" rel="index">
+                    <span itemprop="name">bootstrap</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/06/bootstrap学习/" class="leancloud_visitors" data-flag-title="bootstrap学习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><h4 id="移动设备优先"><a href="#移动设备优先" class="headerlink" title="移动设备优先:"></a>移动设备优先:</h4></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>在移动设备浏览器上，通过为 <strong>viewport meta</strong> 标签添加 <em>user-scalable=no</em> 可以禁用其缩放（zooming）功能。 </p>
+<p>通常情况下，<em>maximum-scale=1.0</em> 与 user-scalable=no 一起使用。这样禁用缩放功能后，用户只能滚动屏幕，就能让您的网站看上去更像原生应用的感觉。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, </span><br><span class="line">                                     initial-scale=1.0, </span><br><span class="line">                                     maximum-scale=1.0, </span><br><span class="line">                                     user-scalable=no&quot;&gt;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><h4 id="包含-bootstrap-样式表"><a href="#包含-bootstrap-样式表" class="headerlink" title="包含 bootstrap 样式表"></a>包含 bootstrap 样式表</h4></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css&quot;&gt;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><h4 id="响应式图像"><a href="#响应式图像" class="headerlink" title="响应式图像"></a>响应式图像</h4></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;...&quot; class=&quot;img-responsive&quot; alt=&quot;响应式图像&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>通过添加 <em>img-responsive</em> class 可以让 Bootstrap中的图像对响应式布局的支持更友好。</p>
+<p>这个class中包含的css属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.img-responsive &#123;</span><br><span class="line">  display: block;</span><br><span class="line">  height: auto;</span><br><span class="line">  max-width: 100%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4. </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/problem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -382,199 +758,6 @@
 <p>多生产者,多消费者模式</p>
 <p>线程的wait和notify方法.</p>
 
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/java并发学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="赵国瑞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Allen | blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/04/java并发学习/" itemprop="url">java并发学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-04T09:07:07+08:00">
-                2019-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/并发/" itemprop="url" rel="index">
-                    <span itemprop="name">并发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/04/java并发学习/" class="leancloud_visitors" data-flag-title="java并发学习">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Semephore和Exchanger的使用"><a href="#Semephore和Exchanger的使用" class="headerlink" title="Semephore和Exchanger的使用"></a>Semephore和Exchanger的使用</h2><h3 id="Semaphore-信号-信号系统-的使用"><a href="#Semaphore-信号-信号系统-的使用" class="headerlink" title="Semaphore (信号,信号系统) 的使用"></a>Semaphore (信号,信号系统) 的使用</h3><p>Semaphore 提供的功能是 synchronized 关键字的升级版,<strong>主要作用是控制线程并发的数量 (这一点单纯使用synchronized是完不成的 ) .</strong></p>
-<p><strong>为什么要控制线程并发的数量呢?</strong></p>
-<p>如果不限制线程并发的数量,cpu资源很快就会被耗尽,每个线程执行任务相当缓慢,同时上下文切换也要耗时.造成系统运行效率很低.</p>
-<h4 id="Semaphore的同步性"><a href="#Semaphore的同步性" class="headerlink" title="Semaphore的同步性"></a>Semaphore的同步性</h4><p><strong>多线程中同步的概念</strong>:排着队一个一个执行,有助于程序逻辑的正确性.</p>
-<h4 id="Semaphore的构造方法中的permit参数"><a href="#Semaphore的构造方法中的permit参数" class="headerlink" title="Semaphore的构造方法中的permit参数"></a>Semaphore的构造方法中的permit参数</h4><p>参数permit代表同一时间内,设置许可的数量,即最多允许多少个线程同时执行acquire()和release()之间的代码.</p>
-<p>参数permit大于1,不能保证线程安全性.</p>
-<p>new Semaphore(5); 中5并不是最终的许可数量,仅仅使初始的状态值.</p>
-<h4 id="acquire-int-permit-参数作用及动态permits许可数量"><a href="#acquire-int-permit-参数作用及动态permits许可数量" class="headerlink" title="acquire(int permit)参数作用及动态permits许可数量"></a>acquire(int permit)参数作用及动态permits许可数量</h4><p>acquire(int permit)每调用一次此方法,使用x个许可.</p>
-<p>release()同.</p>
-<h4 id="acquireUninterruptibly-方法的使用"><a href="#acquireUninterruptibly-方法的使用" class="headerlink" title="acquireUninterruptibly()方法的使用"></a>acquireUninterruptibly()方法的使用</h4><p>作用:等待进入acquire()方法的线程,不允许被打断.</p>
-<h4 id="availablePermits-和drainPerimits"><a href="#availablePermits-和drainPerimits" class="headerlink" title="availablePermits()和drainPerimits()"></a>availablePermits()和drainPerimits()</h4><p>availablePermits()返回此Semaphore对象中当前可用的许可数,通常用于调试,因为许可的数量实时在改变,不固定.</p>
-<p>drainPerimits()返回立即可用的所有许可个数,并且将可用许可置为0.</p>
-<h4 id="getQueueLength-和hasQueuedThreads"><a href="#getQueueLength-和hasQueuedThreads" class="headerlink" title="getQueueLength()和hasQueuedThreads()"></a>getQueueLength()和hasQueuedThreads()</h4><p>getQueueLength()返回等待许可的线程个数</p>
-<p>hasQueuedThreads()判断有没有线程在等待这个许可.</p>
-<h4 id="公平与非公平信号量的测试"><a href="#公平与非公平信号量的测试" class="headerlink" title="公平与非公平信号量的测试"></a>公平与非公平信号量的测试</h4><p>有些时候,获得许可的顺序与线程启动的顺序有关,这时信号量就要分为公平与非公平的</p>
-<p>所谓公平信号量就是获得锁的顺序与线程启动的顺序有关,但不代表100%的获得信号量,仅仅使在概率上能得到保证.</p>
-<p>而非公平信号量就是无关了.</p>
-<p>在Semaphore构造函数中加入 isFair=true即可得到公平信号量运行的结果.</p>
-<h4 id="tryAcquire-的使用"><a href="#tryAcquire-的使用" class="headerlink" title="tryAcquire()的使用"></a>tryAcquire()的使用</h4><p>作用使尝试获得1个许可,如果获取不到则返回false,通常与if结合,特点是无堵塞的特点,可以使线程不至于在同步处一直持续等待的状态,if不成立会执行else,程序继续往下走.</p>
-<p>tryAcquire(int permits),尝试获得x个许可,同上.</p>
-<p>tryAcquire(int long timeout, TimeUnit unit)在指定的时间内尝试获得许可.</p>
-<p>tryAcquire(int permits,int long timeout,TimeUnit unit) 同上</p>
-<h4 id="多进路-多处理-多出路"><a href="#多进路-多处理-多出路" class="headerlink" title="多进路-多处理-多出路"></a>多进路-多处理-多出路</h4><p>允许多个线程同时处理任务.即每个线程都在处理自己的任务</p>
-<h4 id="多进程-单处理-多出路"><a href="#多进程-单处理-多出路" class="headerlink" title="多进程-单处理-多出路"></a>多进程-单处理-多出路</h4><p>允许多个线程同时处理任务,但执行任务的顺序确实同步的,也就是堵塞的,即单处理.</p>
-<p>加入了ReentrantLock对象,调用它的lock方法保证同步性.</p>
-<h4 id="多生产者多消费者模式"><a href="#多生产者多消费者模式" class="headerlink" title="多生产者多消费者模式"></a>多生产者多消费者模式</h4><p>类Semaphore提供了限制并发线程数的功能,此功能在默认的synchronized中是不提供的.</p>
-<h3 id="Exchanger的使用"><a href="#Exchanger的使用" class="headerlink" title="Exchanger的使用"></a>Exchanger的使用</h3><p>Exchanger主要是可以使两个线程间互相方便进行通信.,即在两个线程之间传输数据,它比生产者/消费者模式使用的wait/notify更加方便.</p>
-<h4 id="exchange-方法的阻塞特性"><a href="#exchange-方法的阻塞特性" class="headerlink" title="exchange()方法的阻塞特性:"></a>exchange()方法的阻塞特性:</h4><p>此方法被调用后,等待其他线程来取得数据,如果没有其他线程取得数据,则一直阻塞.</p>
-<p>exchange(V x,long timeout,TimeUnit unit):在制定时间内没有被其他线程获取数据,出现超时异常</p>
-<h2 id="CountDownLatch和CyclicBarrier的使用"><a href="#CountDownLatch和CyclicBarrier的使用" class="headerlink" title="CountDownLatch和CyclicBarrier的使用"></a>CountDownLatch和CyclicBarrier的使用</h2><p>这两个工具类可以控制线程的同步,使线程在同步的处理上更加灵活.</p>
-<h3 id="CountDownLatch的使用"><a href="#CountDownLatch的使用" class="headerlink" title="CountDownLatch的使用"></a>CountDownLatch的使用</h3>
           
         
       
@@ -1774,174 +1957,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/java整型缓存机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="赵国瑞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Allen | blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/20/java整型缓存机制/" itemprop="url">java整型缓存机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T07:51:44+08:00">
-                2019-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java基础知识/" itemprop="url" rel="index">
-                    <span itemprop="name">java基础知识</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/03/20/java整型缓存机制/" class="leancloud_visitors" data-flag-title="java整型缓存机制">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Integer i1 = <span class="number">3</span>;</span><br><span class="line">Integer i2 = <span class="number">3</span>;</span><br><span class="line">i1 == i2;</span><br><span class="line"></span><br><span class="line">Integer i3 = <span class="number">300</span>;</span><br><span class="line">Integer i4 = <span class="number">300</span>;</span><br><span class="line">i3 != i4;</span><br></pre></td></tr></table></figure>
-<p>在Integer的操作上引入了一个新功能来节省内存和提高性能。</p>
-<p>在整数值区间<strong>-128 至 +127,</strong>整型对象通过使用相同的对象应用实现了缓存和重用.</p>
-<p>== 与 equals :</p>
-<ol>
-<li><p>== </p>
-<ol>
-<li>基本类型 : 比较的是值</li>
-<li><p>引用类型 : 比较的是引用</p>
-</li>
-<li><p>equals</p>
-<p>​    1. 比较的是值</p>
-</li>
-</ol>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1992,7 +2007,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2003,7 +2018,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2014,7 +2029,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
