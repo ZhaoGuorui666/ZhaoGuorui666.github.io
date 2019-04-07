@@ -416,6 +416,26 @@
 <h4 id="getNumberWaiting-和getParities-方法"><a href="#getNumberWaiting-和getParities-方法" class="headerlink" title="getNumberWaiting()和getParities()方法"></a>getNumberWaiting()和getParities()方法</h4><p>getNumberWaiting()作用是返回有几个线程到达屏障点.</p>
 <p>getParties()作用是取得Parties个数.</p>
 <h4 id="reset"><a href="#reset" class="headerlink" title="reset()"></a>reset()</h4><p>重置屏障.线程可能会出现Broken错误.</p>
+<h2 id="Phaser的使用"><a href="#Phaser的使用" class="headerlink" title="Phaser的使用"></a>Phaser的使用</h2><p>CyclicBarrier的缺陷: 不可以动态添加parties,调用一次await()方法仅仅占用1个parties计数,所以在jdk1.7中新增了一个名称给phaser的类来解决这样的问题.</p>
+<p>类phaser对计数的操作是加法操作.</p>
+<h3 id="phaser的使用"><a href="#phaser的使用" class="headerlink" title="phaser的使用"></a>phaser的使用</h3><h4 id="arriveAndAwaitAdvance-方法"><a href="#arriveAndAwaitAdvance-方法" class="headerlink" title="arriveAndAwaitAdvance()方法"></a>arriveAndAwaitAdvance()方法</h4><p>arriveAndAwaitAdvance()的作用与CountDownLatch中的await()方法大体一样,作用是当前线程已经到达屏障,在此等待一段时间,等条件满足后继续向下一个屏障继续执行.</p>
+<h4 id="arriveAndDeregister-方法"><a href="#arriveAndDeregister-方法" class="headerlink" title="arriveAndDeregister()方法"></a>arriveAndDeregister()方法</h4><p>如果有三个线程A,B,C,  其中A,B需要执行两个arriveAndAwaitAdvance()方法,而C只需要执行一个,那么等C执行完一个方法之后,A,B后面的方法都不能执行,那么可以使用phaser类中的arriveAndDeregitser()方法来”注销C”.</p>
+<h4 id="getPhase-方法"><a href="#getPhase-方法" class="headerlink" title="getPhase()方法"></a>getPhase()方法</h4><p>获取已经到达了第几个屏障</p>
+<h4 id="onAdvance-方法"><a href="#onAdvance-方法" class="headerlink" title="onAdvance()方法"></a>onAdvance()方法</h4><p>通过新的屏障时被调用.</p>
+<p>返回true,Phase呈无效/销毁的状态</p>
+<p>返回false,Phase继续工作.</p>
+<h4 id="getRegisteredParties-方法和register-方法"><a href="#getRegisteredParties-方法和register-方法" class="headerlink" title="getRegisteredParties()方法和register()方法"></a>getRegisteredParties()方法和register()方法</h4><p>getRegitseredParties()方法取得注册的parties数量.</p>
+<p>每调用一次register()方法就动态添加一个parties值.</p>
+<h4 id="bulkRegister-int-number-方法"><a href="#bulkRegister-int-number-方法" class="headerlink" title="bulkRegister(int number)方法"></a>bulkRegister(int number)方法</h4><p>批量增加parties数量.</p>
+<h4 id="getArrivedParties-和getUnarrivedParties-方法测试"><a href="#getArrivedParties-和getUnarrivedParties-方法测试" class="headerlink" title="getArrivedParties()和getUnarrivedParties()方法测试"></a>getArrivedParties()和getUnarrivedParties()方法测试</h4><p>getArrivedParties()获得已经被使用的parties个数.</p>
+<p>getUnarrivedParties()相反.</p>
+<h4 id="arrive-方法"><a href="#arrive-方法" class="headerlink" title="arrive()方法"></a>arrive()方法</h4><p>使parties值加1,并且不在屏障处等待,直接向下面的代码继续运行.</p>
+<h4 id="awaitAdvance-int-phase-方法测试"><a href="#awaitAdvance-int-phase-方法测试" class="headerlink" title="awaitAdvance(int phase)方法测试"></a>awaitAdvance(int phase)方法测试</h4><p>作用是:如果传入参数phase的值和当前getphase()方法返回值一样,则在屏障处等待,否则继续向下运行,类似于旁观者的作用,当观察的条件满足了就等待,如果条件不满足,则程序向下继续运行.</p>
+<p>并不参与parties计数的操作,仅具有判断的功能.</p>
+<h4 id="awaitAdvanceInterruptibly-int-number"><a href="#awaitAdvanceInterruptibly-int-number" class="headerlink" title="awaitAdvanceInterruptibly(int number)"></a>awaitAdvanceInterruptibly(int number)</h4><p>可中断的.</p>
+<h4 id="awaitAdvanceInterruptibly-int-long-TimeUnit"><a href="#awaitAdvanceInterruptibly-int-long-TimeUnit" class="headerlink" title="awaitAdvanceInterruptibly(int,long,TimeUnit)"></a>awaitAdvanceInterruptibly(int,long,TimeUnit)</h4><p>在指定带栏数等待最大的单位之间,如果指定的时间内,栏数未变,则出现异常,否则继续向下运行</p>
+<h4 id="forceTermination-和isTerminated-方法"><a href="#forceTermination-和isTerminated-方法" class="headerlink" title="forceTermination()和isTerminated()方法"></a>forceTermination()和isTerminated()方法</h4><p>forceTermination()是phaser对象的屏障功能失效</p>
+<p>isTerminated()方法判断phase对象是否已经呈销毁状态.</p>
 
           
         
