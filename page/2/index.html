@@ -259,6 +259,352 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/mybatis-动态SQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵国瑞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Allen | blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/26/mybatis-动态SQL/" itemprop="url">mybatis-动态SQL</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-26T08:19:23+08:00">
+                2019-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mybatis/" itemprop="url" rel="index">
+                    <span itemprop="name">mybatis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/26/mybatis-动态SQL/" class="leancloud_visitors" data-flag-title="mybatis-动态SQL">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-if标签"><a href="#1-if标签" class="headerlink" title="1.if标签"></a>1.if标签</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"findUserById"</span> resultType=<span class="string">"user"</span>&gt;</span><br><span class="line">select * from user where </span><br><span class="line">&lt;<span class="keyword">if</span> test=<span class="string">"id != null"</span>&gt;</span><br><span class="line">id=#&#123;id&#125;</span><br><span class="line">&lt;/if&gt;</span><br><span class="line">and deleteFlag=<span class="number">0</span>;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>如果传入的id 不为空， 那么才会SQL才拼接id = #{id}。</p>
+<p>问题 : 传入的id为null,则sql =  “select * from user where and deleteFlag=0”,   sql语句错误.</p>
+<h3 id="2-where标签"><a href="#2-where标签" class="headerlink" title="2.where标签"></a>2.where标签</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"findUserById"</span> resultType=<span class="string">"user"</span>&gt;</span><br><span class="line">           select * from user </span><br><span class="line">           &lt;where&gt;</span><br><span class="line">               &lt;<span class="keyword">if</span> test=<span class="string">"id != null"</span>&gt;</span><br><span class="line">                   id=#&#123;id&#125;</span><br><span class="line">               &lt;/if&gt;</span><br><span class="line">               and deleteFlag=<span class="number">0</span>;</span><br><span class="line">           &lt;/where&gt;</span><br><span class="line"> &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>当它遇到AND或者OR这些,会智能去掉或者添加.不会出现if的问题.</p>
+<h3 id="3-trim标签"><a href="#3-trim标签" class="headerlink" title="3.trim标签"></a>3.trim标签</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;trim prefix=<span class="string">"WHERE"</span> prefixOverrides=<span class="string">"AND |OR "</span>&gt;</span><br><span class="line">  ... </span><br><span class="line">&lt;/trim&gt;</span><br></pre></td></tr></table></figure>
+<p>他的意思是: 当WHERE后紧随AND或则OR的时候，就去除AND或者OR。</p>
+<h3 id="4-set标签"><a href="#4-set标签" class="headerlink" title="4.set标签"></a>4.set标签</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=<span class="string">"updateUser"</span> parameterType=<span class="string">"com.dy.entity.User"</span>&gt;</span><br><span class="line">           update user set </span><br><span class="line">           &lt;<span class="keyword">if</span> test=<span class="string">"name != null"</span>&gt;</span><br><span class="line">               name = #&#123;name&#125;,</span><br><span class="line">           &lt;/if&gt; </span><br><span class="line">           &lt;<span class="keyword">if</span> test=<span class="string">"password != null"</span>&gt;</span><br><span class="line">               password = #&#123;password&#125;,</span><br><span class="line">           &lt;/if&gt; </span><br><span class="line">           &lt;<span class="keyword">if</span> test=<span class="string">"age != null"</span>&gt;</span><br><span class="line">               age = #&#123;age&#125;</span><br><span class="line">           &lt;/if&gt; </span><br><span class="line">           &lt;where&gt;</span><br><span class="line">               &lt;<span class="keyword">if</span> test=<span class="string">"id != null"</span>&gt;</span><br><span class="line">                   id = #&#123;id&#125;</span><br><span class="line">               &lt;/if&gt;</span><br><span class="line">               and deleteFlag = <span class="number">0</span>;</span><br><span class="line">           &lt;/where&gt;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure>
+<p>如果只有name不为null,  那么SQL就成了 update set name = #{name}, where ……..   出现的逗号就出错了</p>
+<p>用了set标签后</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=<span class="string">"updateUser"</span> parameterType=<span class="string">"com.dy.entity.User"</span>&gt;</span><br><span class="line">           update user</span><br><span class="line">        &lt;set&gt;</span><br><span class="line">          &lt;if test="name != null"&gt;name = #&#123;name&#125;,&lt;/if&gt; </span><br><span class="line">             &lt;if test="password != null"&gt;password = #&#123;password&#125;,&lt;/if&gt; </span><br><span class="line">             &lt;if test="age != null"&gt;age = #&#123;age&#125;,&lt;/if&gt; </span><br><span class="line">        &lt;/set&gt;</span><br><span class="line">           &lt;where&gt;</span><br><span class="line">               &lt;<span class="keyword">if</span> test=<span class="string">"id != null"</span>&gt;</span><br><span class="line">                   id = #&#123;id&#125;</span><br><span class="line">               &lt;/if&gt;</span><br><span class="line">               and deleteFlag = <span class="number">0</span>;</span><br><span class="line">           &lt;/where&gt;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure>
+<p>用trim表示为</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;trim prefix=<span class="string">"SET"</span> suffixOverrides=<span class="string">","</span>&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/trim&gt;</span><br></pre></td></tr></table></figure>
+<p>WHERE是使用的 prefixOverrides（前缀）， SET是使用的 suffixOverrides （后缀）</p>
+<h3 id="5-foreach标签"><a href="#5-foreach标签" class="headerlink" title="5.foreach标签"></a>5.foreach标签</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"selectPostIn"</span> resultType=<span class="string">"domain.blog.Post"</span>&gt;</span><br><span class="line">  SELECT *</span><br><span class="line">  FROM POST P</span><br><span class="line">  WHERE ID in</span><br><span class="line">  &lt;foreach item=<span class="string">"item"</span> index=<span class="string">"index"</span> collection=<span class="string">"list"</span></span><br><span class="line">      open=<span class="string">"("</span> separator=<span class="string">","</span> close=<span class="string">")"</span>&gt;</span><br><span class="line">        #&#123;item&#125;</span><br><span class="line">  &lt;/foreach&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>将一个 List 实例或者数组作为参数对象传给 MyBatis.</p>
+<p>List 实例将会以“list”作为键，而数组实例的键将是“array”。同样， 当循环的对象为map的时候，index其实就是map的key。</p>
+<h3 id="6-choose标签"><a href="#6-choose标签" class="headerlink" title="6.choose标签"></a>6.choose标签</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"findActiveBlogLike"</span></span><br><span class="line">     resultType=<span class="string">"Blog"</span>&gt;</span><br><span class="line">  SELECT * FROM BLOG WHERE state = ‘ACTIVE’</span><br><span class="line">  &lt;choose&gt;</span><br><span class="line">    &lt;when test=<span class="string">"title != null"</span>&gt;</span><br><span class="line">      AND title like #&#123;title&#125;</span><br><span class="line">    &lt;/when&gt;</span><br><span class="line">    &lt;when test=<span class="string">"author != null and author.name != null"</span>&gt;</span><br><span class="line">      AND author_name like #&#123;author.name&#125;</span><br><span class="line">    &lt;/when&gt;</span><br><span class="line">    &lt;otherwise&gt;</span><br><span class="line">      AND featured = <span class="number">1</span></span><br><span class="line">    &lt;/otherwise&gt;</span><br><span class="line">  &lt;/choose&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>choose相当于switch,   otherwise相当于default</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/java基础知识点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵国瑞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Allen | blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/20/java基础知识点/" itemprop="url">java基础知识点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T08:15:14+08:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java基础知识/" itemprop="url" rel="index">
+                    <span itemprop="name">java基础知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/20/java基础知识点/" class="leancloud_visitors" data-flag-title="java基础知识点">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p>jre和jdk的区别 :</p>
+<p>jdk : java开发工具包,提供了java的开发环境的运行环境.</p>
+<p>jre : java运行环境,为java的运行提供了所需环境.</p>
+<p>jdk包含了jre,同时还包含了编译java源码的编译器javac以及很多java程序调试和分析的工具.</p>
+<p>如果需要运行java程序,只需要安装jre就可以了,如果需要编写java程序,需要安装jdk.</p>
+</li>
+<li><p>hashcode():</p>
+<blockquote>
+<p>hashCode : 是jdk根据对象的地址或者字符串或者数字算出来的int类型的数值 </p>
+</blockquote>
+<ol>
+<li>如果根据 equals(Object) 方法，两个对象是相等的，那么对这两个对象中的每个对象调用 hashCode 方法都必须生成相同的整数结果.</li>
+<li>即使两个hashCode()返回的结果相等，两个对象的equals方法也不一定相等。</li>
+<li>哈希表仅需一次定位即可完成,时间复杂度 O(1);</li>
+<li>哈希冲突的解决<ol>
+<li>开放定址法 : 发生冲突，继续寻找下一块未被占用的存储地址</li>
+<li>再散列函数法 : 链地址法，而HashMap即是采用了链地址法，也就是<strong>数组+链表</strong>的方式</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/java整型缓存机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1688,7 +2034,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1710,7 +2056,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
