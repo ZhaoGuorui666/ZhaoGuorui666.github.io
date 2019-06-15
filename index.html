@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/15/javaweb从服务器下载文件/" itemprop="url">javaweb�ӷ����������ļ�</a></h1>
+                <a class="post-title-link" href="/2019/06/15/javaweb从服务器下载文件/" itemprop="url">javaweb从服务器下载文件</a></h1>
         
 
         <div class="post-meta">
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-15T09:11:49+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-15T15:05:32+08:00">
                 2019-06-15
               </time>
             
@@ -330,7 +330,7 @@
 
           
           
-             <span id="/2019/06/15/javaweb从服务器下载文件/" class="leancloud_visitors" data-flag-title="javaweb�ӷ����������ļ�">
+             <span id="/2019/06/15/javaweb从服务器下载文件/" class="leancloud_visitors" data-flag-title="javaweb从服务器下载文件">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -363,12 +363,12 @@
       
         
           
-            <p>xls,doc,zip�ļ�����,�������������,����ֱ������.</p>
-<p>����</p>
+            <p>xls,doc,zip文件访问,浏览器解析不了,可以直接下载.</p>
+<p>或者</p>
 <p>@RequestMapping(value = “test”,produces=”text/html;charset=utf-8”)<br>    public void test(HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {<br>        String path = “C:\Users\18235\Desktop\test\itext\upload\“;<br>        String filename = “test.pdf”;</p>
 <pre><code>    request.setCharacterEncoding(&quot;utf-8&quot;);
 
-    String urlname = URLEncoder.encode(filename, &quot;utf-8&quot;);//��ֹ�ļ���������������
+    String urlname = URLEncoder.encode(filename, &quot;utf-8&quot;);//防止文件名中有中文乱码
     response.setHeader(&quot;Content-Disposition&quot;,&quot;attachment;filename=&quot;+urlname);
 
     FileInputStream fis = new FileInputStream(new File(path+filename));
@@ -2044,7 +2044,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
