@@ -259,6 +259,230 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/蓝桥杯-学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵国瑞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Allen | blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/08/蓝桥杯-学习/" itemprop="url">蓝桥杯---学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-08T15:36:18+08:00">
+                2019-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/蓝桥杯/" itemprop="url" rel="index">
+                    <span itemprop="name">蓝桥杯</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/08/蓝桥杯-学习/" class="leancloud_visitors" data-flag-title="蓝桥杯---学习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong><em>%.2f</em></strong> : 小数点后留两位</p>
+<p><strong>double sqrt( double num )函数 </strong>: 计算平方根,用到math.h</p>
+<p><strong>sin,cos,asin,acos,tan,atan</strong></p>
+<p><strong>%03d</strong> : 输出三位,不够补零</p>
+<p><strong>floor(x)</strong> : 返回不超过x的最大整数</p>
+<p><strong>long long</strong> : -2^63 ~ 2^63-1 输出格式%lld 或者 %I64d 或者用c++中的cout输出;</p>
+<p><strong>计时器</strong> : 使用time.h和clock()函数获得程序运行时间.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"time used = %.2f\n"</span>, (<span class="keyword">double</span>)clock / CLOCKS_PER_SEC)</span><br></pre></td></tr></table></figure>
+<p><strong>数据的读取</strong> :  可以把测试数据放入文件中,如果数据很大,输出到文件比在控制台快得多哦;</p>
+<ol>
+<li><p>利用重定向:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#define FLAG</span><br><span class="line">#ifdef FLAG</span><br><span class="line">	freopen(&quot;data.in&quot;,&quot;r&quot;,stdin);</span><br><span class="line">	freopen(&quot;data.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果禁止重定向读写:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">FILE *fin,*fout;</span><br><span class="line">fin = fopen(<span class="string">"data.in"</span>,<span class="string">"rb"</span>);</span><br><span class="line">fout = fopen(<span class="string">"data.out"</span>,<span class="string">"wb"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">fscanf</span>(fin,<span class="string">"%d"</span>,&amp;x) == <span class="number">1</span>)&#123;</span><br><span class="line">    ######</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">fprintf</span>(fout,<span class="string">"%d"</span>,x);</span><br><span class="line">fclose(fin);</span><br><span class="line">fclose(fout);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>复制数组(需要包含string.h)</strong> :  </p>
+<ol>
+<li><p>将数组a复制k个元素到数组b</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">memcpy(b,a,sizeof(int)*k)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li><p>将数组a复制到数组b</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memcpy</span>(b,a,<span class="keyword">sizeof</span>(a))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>数组初始化</strong> : </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memset</span>(a,<span class="number">0</span>,<span class="keyword">sizeof</span>(a));</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">999</span>] = &#123;<span class="number">0</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>读入字符数组</strong> : </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> s[];</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%s"</span>,s);  <span class="comment">// 没有&amp;</span></span><br></pre></td></tr></table></figure>
+<p><strong><a href="https://www.cnblogs.com/Lunais/p/6098731.html" target="_blank" rel="noopener">sscanf</a>,sprintf</strong> : 输出到字符串中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sprintf</span>见API</span><br></pre></td></tr></table></figure>
+<p><strong>素数判定</strong> : </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">is_prime</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;=<span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="built_in">floor</span>(<span class="built_in">sqrt</span>(n)+<span class="number">0.5</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ;i&lt;=m;i++)</span><br><span class="line">        <span class="keyword">if</span>(n%i == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>sort函数(需要 algorithm 库)</strong> : </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&gt;b; <span class="comment">//从大到小排序</span></span><br><span class="line">    <span class="keyword">return</span> a&lt;b; <span class="comment">//从小到大排序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>isalpha,isdigit,toupper(需要 ctype.h)</strong></p>
+<p><strong>min(),max()函数需要用到 algorithm 库</strong></p>
+<p><strong>string -&gt; char*</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data()</span><br><span class="line">① <span class="keyword">const</span> <span class="keyword">char</span>* charDemo = str.data();</span><br><span class="line">② <span class="keyword">char</span>* charDemo = (<span class="keyword">char</span>*)str.data();</span><br><span class="line">c_str()同</span><br></pre></td></tr></table></figure>
+<p><strong>char* -&gt; string</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str = charDemo;</span><br></pre></td></tr></table></figure>
+<p><strong>string -&gt; char[ ]</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">遍历转换</span><br></pre></td></tr></table></figure>
+<p><strong>rbegin尾元素</strong></p>
+<p><strong>迭代器:  set<object>::iterator</object></strong></p>
+<p><strong>deque 双端队列(支持在首尾两端进行插入和删除)</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pop_back()</span><br><span class="line">pop_front()</span><br><span class="line">push_back()</span><br><span class="line">push_front()</span><br></pre></td></tr></table></figure>
+<p><strong>链表(减少字符移动):</strong></p>
+<p>​    可以用next[ ],和保存数据的数组构成链表.</p>
+<p><strong>双向链表:</strong></p>
+<p>​    利用right[ ],left[ ]</p>
+<p><strong>多写伪代码</strong></p>
+<p>!1 = 0;</p>
+<p>!0 = 1;</p>
+<p><strong>用队列可以实现二叉树的层次遍历;</strong></p>
+<p><strong>sstream库中的stringstream</strong> (读一行数据,但是没有给个数的情况下):</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">stringstream</span> <span class="title">ss</span><span class="params">(str)</span></span>;</span><br><span class="line">ss&gt;&gt;(<span class="keyword">int</span>)num;</span><br></pre></td></tr></table></figure>
+<p><strong>DFS : 递归</strong></p>
+<p><strong>BFS : 队列</strong></p>
+<p><a href="https://www.cnblogs.com/lvchaoshun/p/7769003.html" target="_blank" rel="noopener">pair</a> : 将两个数据组合成一个数据</p>
+<p><a href="https://blog.csdn.net/shawn_hou/article/details/38035577#" target="_blank" rel="noopener">map</a> : 内部一颗红黑树,有自动排序功能</p>
+<p>vector&lt;vector <int> &gt; v;        <strong>(记得留空格,否则报错)</strong></int></p>
+<p><strong>回溯法 : </strong> 也称试探法，它的基本思想是：从问题的某一种状态（初始状态）出发，搜索从这种状态出发所能达到的所有“状态”，当一条路走到“尽头”的时候（不能再前进），再后退一步或若干步，从另一种可能“状态”出发，继续搜索，直到所有的“路径”（状态）都试探过.不断“前进”、不断“回溯”寻找解的方法，</p>
+<p><strong>dp</strong> : 奶牛问题</p>
+<p><strong>动态规划 : </strong>从初始状态一步步达到目标状态,每步贪婪,达到最优解.</p>
+<p><strong>string    &lt; - &gt;     int</strong>        函数原型 : char <em>  itoa ( int value, char </em> str, int base );</p>
+<p><strong>如果先cin一个数据,空格没有读取,这时候用getline(),会读空格.这时候可以用getchar()把空格读走.</strong></p>
+<p>‘9’ -&gt; 9 :</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = <span class="string">'9'</span>;</span><br><span class="line"><span class="keyword">int</span> i = c-<span class="string">'0'</span>;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/堆/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1124,7 +1348,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1135,7 +1359,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
